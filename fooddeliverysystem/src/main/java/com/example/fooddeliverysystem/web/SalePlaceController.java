@@ -7,6 +7,7 @@ import com.example.fooddeliverysystem.service.SalePlaceService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -24,7 +25,11 @@ public class SalePlaceController {
     public String showSalePlaces(Model model){
         List<SalePlace> salePlaceList = this.salePlaceService.findAll();
         model.addAttribute("salePlaces", salePlaceList);
-
         return "saleplaces";
+    }
+
+    @GetMapping("/salePlace/{id}")
+    public String showSalePlaceFooItems(@PathVariable Long id, Model model){
+        return null;
     }
 }
