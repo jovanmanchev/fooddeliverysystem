@@ -1,5 +1,6 @@
 package com.example.fooddeliverysystem.web;
 
+import com.example.fooddeliverysystem.exceptions.SalePlaceNotFoundException;
 import com.example.fooddeliverysystem.model.SalePlace;
 import com.example.fooddeliverysystem.repository.PriceRepository;
 import com.example.fooddeliverysystem.service.PriceService;
@@ -16,20 +17,28 @@ public class SalePlaceController {
 
     private final SalePlaceService salePlaceService;
     private final PriceService priceService;
+
     public SalePlaceController(SalePlaceService salePlaceService, PriceService priceService) {
         this.salePlaceService = salePlaceService;
         this.priceService = priceService;
     }
 
     @GetMapping("/salePlaces")
-    public String showSalePlaces(Model model){
+    public String showSalePlaces(Model model) {
         List<SalePlace> salePlaceList = this.salePlaceService.findAll();
         model.addAttribute("salePlaces", salePlaceList);
         return "saleplaces";
     }
 
     @GetMapping("/salePlace/{id}")
-    public String showSalePlaceFooItems(@PathVariable Long id, Model model){
-        return null;
+    public String showSalePlaceFooItems(@PathVariable Long id, Model model) {
+        try {
+            model.addAttribute("foodItems", this.salePlaceService.findSalePlaceServiceById(id).getFoodItemList());
+
+
+        } catch (SalePlaceNotFoundException salePlaceNotFoundException) {
+            model.addAttribute("error", salePlaceNotFoundException.getMessage());
+        }
+        return "saleplacefooditems";
     }
 }

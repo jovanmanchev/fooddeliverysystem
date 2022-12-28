@@ -1,5 +1,6 @@
 package com.example.fooddeliverysystem.service.impl;
 
+import com.example.fooddeliverysystem.exceptions.SalePlaceNotFoundException;
 import com.example.fooddeliverysystem.model.SalePlace;
 import com.example.fooddeliverysystem.repository.SalePlaceRepository;
 import com.example.fooddeliverysystem.service.SalePlaceService;
@@ -19,5 +20,11 @@ public class SalePlaceServiceImpl implements SalePlaceService {
     @Override
     public List<SalePlace> findAll() {
         return this.salePlaceRepository.findAll();
+    }
+
+    @Override
+    public SalePlace findSalePlaceServiceById(Long id) throws SalePlaceNotFoundException {
+        return this.salePlaceRepository.findById(id).orElseThrow(() -> new SalePlaceNotFoundException("Sale place not found"));
+
     }
 }

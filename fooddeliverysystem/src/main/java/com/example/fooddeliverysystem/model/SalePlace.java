@@ -35,6 +35,6 @@ public class SalePlace {
     private Admin admin;
 
     @OneToMany(mappedBy = "salePlace", fetch = FetchType.EAGER)
-    private List<FoodItem> foodItemList;
+    List<FoodItem> foodItemList;
 }
 
