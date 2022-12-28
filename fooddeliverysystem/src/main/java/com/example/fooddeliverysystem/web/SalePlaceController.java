@@ -1,5 +1,6 @@
 package com.example.fooddeliverysystem.web;
 
+import com.example.fooddeliverysystem.exceptions.SalePlaceNotFoundException;
 import com.example.fooddeliverysystem.model.SalePlace;
 import com.example.fooddeliverysystem.repository.PriceRepository;
 import com.example.fooddeliverysystem.service.PriceService;
@@ -31,5 +32,15 @@ public class SalePlaceController {
                 });
         return "saleplaces";
     }
-    
+    @GetMapping("/salePlace/{id}")
+    public String showSalePlaceFooItems(@PathVariable Long id, Model model){
+        try {
+            model.addAttribute("foodItems", this.salePlaceService.findSalePlaceServiceById(id).getFoodItemList());
+
+
+        }catch (SalePlaceNotFoundException salePlaceNotFoundException){
+            model.addAttribute("error", salePlaceNotFoundException.getMessage());
+        }
+        return "saleplacefooditems";
+    }
 }

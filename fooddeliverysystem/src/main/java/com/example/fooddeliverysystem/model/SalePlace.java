@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "prodazhnomesto")
 @Data
@@ -31,4 +33,7 @@ public class SalePlace {
     @ManyToOne
     @JoinColumn(name = "admin_id")
     private Admin admin;
+
+    @OneToMany(mappedBy = "salePlace", fetch = FetchType.EAGER)
+    List<FoodItem> foodItemList;
 }
