@@ -25,7 +25,21 @@ public class WebSecurityConfiguration   {
         http.csrf()
                 .disable()
                 .authorizeRequests()
-                .anyRequest().permitAll();
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .permitAll()
+                .failureUrl("/login?error=BadCredentials")
+                .defaultSuccessUrl("/salePlaces", true)
+                .and()
+                .logout()
+                    .logoutUrl("/logout")
+                    .clearAuthentication(true)
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID")
+                    .logoutSuccessUrl("/login");
+
 
         return http.build();
 
