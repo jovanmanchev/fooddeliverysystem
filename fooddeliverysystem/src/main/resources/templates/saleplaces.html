@@ -6,7 +6,7 @@
 </head>
 <body>
     <div th:each = "salePlace : ${salePlaces}">
-        <p th:text = "${salePlace.getSalePlaceName()}"></p>
+        <a th:href="@{'/salePlace/{id}'(id = ${salePlace.getSalePalceId()})}" th:text = "${salePlace.getSalePlaceName()}"></a>
     </div>
 </body>
 </html>
