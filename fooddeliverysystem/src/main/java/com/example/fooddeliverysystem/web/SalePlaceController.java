@@ -67,10 +67,6 @@ public class SalePlaceController {
                                          @RequestParam List<Integer> foodPrice,
                                          @RequestParam List<Integer> quantity,
                                          HttpServletRequest httpServletRequest){
-        System.out.println(foodIds);
-        System.out.println(foodPrice);
-        System.out.println(quantity);
-        System.out.println(id);
         try {
             this.orderService.placeOrder(id, foodIds, foodPrice, quantity, httpServletRequest.getRemoteUser());
         } catch (SalePlaceNotFoundException e) {
