@@ -58,7 +58,13 @@ public class SalePlaceController {
         return "saleplacefooditems";
     }
     @PostMapping("/salePlace/{id}")
-    public String createOrderInSalePlace(@PathVariable Long id){
+    public String createOrderInSalePlace(@PathVariable Long id,
+                                         @RequestParam List<String> foodName,
+                                         @RequestParam List<Integer> foodPrice,
+                                         @RequestParam List<Integer> quantity){
+        System.out.println(foodName);
+        System.out.println(foodPrice);
+        System.out.println(quantity);
         System.out.println(id);
         return "redirect:/salePlaces";
     }

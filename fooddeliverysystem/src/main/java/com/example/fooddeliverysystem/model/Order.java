@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "naracka")
@@ -40,5 +42,7 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "naplata_id")
     private OrderPayment orderPayment;
+
+
 
 }
