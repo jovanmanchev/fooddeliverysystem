@@ -5,8 +5,10 @@ import com.example.fooddeliverysystem.exceptions.SalePlaceNotFoundException;
 import com.example.fooddeliverysystem.model.Price;
 import com.example.fooddeliverysystem.model.SalePlace;
 import com.example.fooddeliverysystem.repository.PriceRepository;
+import com.example.fooddeliverysystem.service.OrderService;
 import com.example.fooddeliverysystem.service.PriceService;
 import com.example.fooddeliverysystem.service.SalePlaceService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +24,11 @@ public class SalePlaceController {
 
     private final SalePlaceService salePlaceService;
     private final PriceService priceService;
-    public SalePlaceController(SalePlaceService salePlaceService, PriceService priceService) {
+    private final OrderService orderService;
+    public SalePlaceController(SalePlaceService salePlaceService, PriceService priceService, OrderService orderService) {
         this.salePlaceService = salePlaceService;
         this.priceService = priceService;
+        this.orderService = orderService;
     }
 
     @GetMapping("/salePlaces")
@@ -58,8 +62,20 @@ public class SalePlaceController {
         return "saleplacefooditems";
     }
     @PostMapping("/salePlace/{id}")
-    public String createOrderInSalePlace(@PathVariable Long id){
+    public String createOrderInSalePlace(@PathVariable Long id,
+                                         @RequestParam List<Long> foodIds,
+                                         @RequestParam List<Integer> foodPrice,
+                                         @RequestParam List<Integer> quantity,
+                                         HttpServletRequest httpServletRequest){
+        System.out.println(foodIds);
+        System.out.println(foodPrice);
+        System.out.println(quantity);
         System.out.println(id);
+        try {
+            this.orderService.placeOrder(id, foodIds, foodPrice, quantity, httpServletRequest.getRemoteUser());
+        } catch (SalePlaceNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         return "redirect:/salePlaces";
     }
 }

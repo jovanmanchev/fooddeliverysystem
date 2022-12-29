@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "naracka")
@@ -17,6 +19,7 @@ public class Order {
 
     @Id
     @Column(name = "naracka_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
     @Column(name = "status")
@@ -41,4 +44,10 @@ public class Order {
     @JoinColumn(name = "naplata_id")
     private OrderPayment orderPayment;
 
+    public Order(String orderStatus, Timestamp orderDate, SalePlace salePlace, Consumer consumer) {
+        this.orderStatus = orderStatus;
+        this.orderDate = orderDate;
+        this.salePlace = salePlace;
+        this.consumer = consumer;
+    }
 }

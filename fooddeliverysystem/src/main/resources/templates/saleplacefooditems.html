@@ -12,7 +12,7 @@
  <form th:action="@{'/salePlace/{id}'(id = ${salePlaceId})}" th:method="POST">
         <div th:each = "foodItem : ${foodItems}">
 
-            <input th:value = "${foodItem.getFoodItemName()}" name = "foodName" />
+            <input th:text = "${foodItem.getFoodItemName()}" th:value = "${foodItem.getFoodItemId()}" name = "foodIds" />
             <input th:if="${foodItemStat.index < prices.size()}" th:value = "${prices.get(foodItemStat.index).getCost()}" name = "foodPrice">
             <input type="number" name = "quantity">
         </div>
