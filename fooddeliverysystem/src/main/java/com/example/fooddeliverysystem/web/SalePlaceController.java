@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,7 @@ public class SalePlaceController {
     public String showSalePlaceFooItems(@PathVariable Long id, Model model){
         try {
             model.addAttribute("foodItems", this.salePlaceService.findSalePlaceServiceById(id).getFoodItemList());
+            model.addAttribute("salePlaceId", id);
             List<Price> prices = new ArrayList<>();
             this.salePlaceService.findSalePlaceServiceById(id)
                     .getFoodItemList()
@@ -53,5 +56,10 @@ public class SalePlaceController {
             model.addAttribute("error", salePlaceNotFoundException.getMessage());
         }
         return "saleplacefooditems";
+    }
+    @PostMapping("/salePlace/{id}")
+    public String createOrderInSalePlace(@PathVariable Long id){
+        System.out.println(id);
+        return "redirect:/salePlaces";
     }
 }

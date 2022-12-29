@@ -9,11 +9,14 @@
     <div th:if="${error != null}">
       <p th:text = "${error}"></p>
     </div>
-<div th:each = "foodItem : ${foodItems}">
-    <div>
-    <span th:text = "${foodItem.getFoodItemName()}"></span>
-    <span th:if="${foodItemStat.index < prices.size()}" th:text = "${prices.get(foodItemStat.index).getCost()}"></span>
-    </div>
-</div>
+ <form th:action="@{'/salePlace/{id}'(id = ${salePlaceId})}" th:method="POST">
+        <div th:each = "foodItem : ${foodItems}">
+
+            <input th:value = "${foodItem.getFoodItemName()}" name = "foodName" />
+            <input th:if="${foodItemStat.index < prices.size()}" th:value = "${prices.get(foodItemStat.index).getCost()}" name = "foodPrice">
+            <input type="number" name = "quantity">
+        </div>
+     <input type="submit" value = "Направете нарачка">
+ </form>
 </body>
 </html>
