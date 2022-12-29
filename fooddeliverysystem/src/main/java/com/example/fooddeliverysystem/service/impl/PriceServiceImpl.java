@@ -1,5 +1,7 @@
 package com.example.fooddeliverysystem.service.impl;
 
+import com.example.fooddeliverysystem.exceptions.FoodItemNotFoundException;
+import com.example.fooddeliverysystem.model.FoodItem;
 import com.example.fooddeliverysystem.model.Price;
 import com.example.fooddeliverysystem.repository.PriceRepository;
 import com.example.fooddeliverysystem.service.PriceService;
@@ -19,5 +21,10 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public List<Price> findAllPrices() {
         return this.priceRepository.findAll();
+    }
+
+    @Override
+    public Price findCurrentPriceForFoodItem(FoodItem foodItem) throws FoodItemNotFoundException {
+        return null;
     }
 }

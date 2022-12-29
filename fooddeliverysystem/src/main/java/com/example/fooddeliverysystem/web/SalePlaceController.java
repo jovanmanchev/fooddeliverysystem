@@ -26,10 +26,7 @@ public class SalePlaceController {
     public String showSalePlaces(Model model){
         List<SalePlace> salePlaceList = this.salePlaceService.findAll();
         model.addAttribute("salePlaces", salePlaceList);
-        this.priceService.findAllPrices()
-                .forEach(price -> {
-                    System.out.println(price.getPriceKey().getPriceNumber() + " " + price.getPriceKey().getFoodItem().getFoodItemName());
-                });
+
         return "saleplaces";
     }
     @GetMapping("/salePlace/{id}")
