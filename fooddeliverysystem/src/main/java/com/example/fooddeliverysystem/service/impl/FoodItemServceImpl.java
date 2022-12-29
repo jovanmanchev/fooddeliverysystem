@@ -20,4 +20,9 @@ public class FoodItemServceImpl implements FoodItemService {
     public List<FoodItem> findAllFoodItemsByIds(List<Long> foodItemIds) {
         return this.foodItemRepository.findAllById(foodItemIds);
     }
+
+    @Override
+    public FoodItem findFoodItemById(Long id) {
+        return this.foodItemRepository.findById(id).get();
+    }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "hrana")
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class FoodItem {
@@ -36,5 +36,23 @@ public class FoodItem {
     inverseJoinColumns = @JoinColumn(name = "id_namirnica"))
     private List<FoodStructure> foodStructures;
 
+    public Long getFoodItemId() {
+        return foodItemId;
+    }
 
+    public String getFoodItemName() {
+        return foodItemName;
+    }
+
+    public SalePlaceEmployee getSalePlaceEmployee() {
+        return salePlaceEmployee;
+    }
+
+    public SalePlace getSalePlace() {
+        return salePlace;
+    }
+
+    public List<FoodStructure> getFoodStructures() {
+        return foodStructures;
+    }
 }

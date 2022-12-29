@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "vrabotenpd")
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class SalePlaceEmployee {
@@ -21,5 +21,11 @@ public class SalePlaceEmployee {
     @JoinColumn(name = "id_mesto")
     private SalePlace salePlace;
 
+    public Long getSalePlaceEmployeeId() {
+        return salePlaceEmployeeId;
+    }
 
+    public SalePlace getSalePlace() {
+        return salePlace;
+    }
 }

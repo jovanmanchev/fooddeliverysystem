@@ -45,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
         }
         this.orderHasFoodRepository.saveAll(orderHasFoodList);
 
-        System.out.println(orderHasFoodList);
+
 
     }
 }

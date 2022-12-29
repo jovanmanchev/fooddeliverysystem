@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "prodazhnomesto")
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
 public class SalePlace {
@@ -36,5 +36,33 @@ public class SalePlace {
 
     @OneToMany(mappedBy = "salePlace", fetch = FetchType.EAGER)
     List<FoodItem> foodItemList;
+
+    public Long getSalePalceId() {
+        return salePalceId;
+    }
+
+    public String getSalePlaceName() {
+        return salePlaceName;
+    }
+
+    public String getSalePlaceStreetName() {
+        return salePlaceStreetName;
+    }
+
+    public Integer getSalePlaceStreetNumber() {
+        return salePlaceStreetNumber;
+    }
+
+    public Franchize getFranchize() {
+        return franchize;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public List<FoodItem> getFoodItemList() {
+        return foodItemList;
+    }
 }
 

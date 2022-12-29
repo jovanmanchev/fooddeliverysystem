@@ -2,12 +2,9 @@ package com.example.fooddeliverysystem.web;
 
 import com.example.fooddeliverysystem.exceptions.FoodItemNotFoundException;
 import com.example.fooddeliverysystem.exceptions.SalePlaceNotFoundException;
-import com.example.fooddeliverysystem.model.Price;
-import com.example.fooddeliverysystem.model.SalePlace;
+import com.example.fooddeliverysystem.model.*;
 import com.example.fooddeliverysystem.repository.PriceRepository;
-import com.example.fooddeliverysystem.service.OrderService;
-import com.example.fooddeliverysystem.service.PriceService;
-import com.example.fooddeliverysystem.service.SalePlaceService;
+import com.example.fooddeliverysystem.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class SalePlaceController {
@@ -25,10 +25,15 @@ public class SalePlaceController {
     private final SalePlaceService salePlaceService;
     private final PriceService priceService;
     private final OrderService orderService;
-    public SalePlaceController(SalePlaceService salePlaceService, PriceService priceService, OrderService orderService) {
+    private final HasFoodService hasFoodService;
+    private final FoodItemService foodItemService;
+    public SalePlaceController(SalePlaceService salePlaceService, PriceService priceService, OrderService orderService, HasFoodService hasFoodService,
+                               FoodItemService foodItemService) {
         this.salePlaceService = salePlaceService;
         this.priceService = priceService;
         this.orderService = orderService;
+        this.hasFoodService = hasFoodService;
+        this.foodItemService = foodItemService;
     }
 
     @GetMapping("/salePlaces")
@@ -73,5 +78,35 @@ public class SalePlaceController {
             throw new RuntimeException(e);
         }
         return "redirect:/salePlaces";
+    }
+
+    @GetMapping("/salePlace/Orders")
+    public String showSalePlaceOrders(Model model, HttpServletRequest httpServletRequest){
+            Map<Long, List<FoodItem>> map = new HashMap<>();
+            String username = httpServletRequest.getRemoteUser();
+        try {
+            List<Order> orders = this.salePlaceService.findAllCreatedOrders(username);
+            List<OrderHasFood> orderHasFoodList = new ArrayList<>();
+            model.addAttribute("orders", orders);
+            for(Order order: orders){
+                List<OrderHasFood> inner = this.hasFoodService.findAllFoodsInOrder(order.getOrderId());
+                List<FoodItem> items = new ArrayList<>();
+                for(OrderHasFood orderHasFood: inner){
+                    FoodItem foodItems = this.salePlaceService.findSalePlaceServiceById(this.salePlaceService.findSalePlaceForUser(username).getSalePalceId())
+                            .getFoodItemList()
+                            .stream().filter(foodItem -> foodItem.getFoodItemId().equals(orderHasFood.getOrderHasFoodKey().getFoodItemId()))
+                                    .findFirst().get();
+                    items.add(foodItems);
+
+                }
+                map.put(order.getOrderId(), items);
+            }
+
+            model.addAttribute("orderHasFoods", map);
+        } catch (SalePlaceNotFoundException e) {
+            model.addAttribute("error", "sale place not found");
+        }
+        return "saleplaceorders";
+
     }
 }
