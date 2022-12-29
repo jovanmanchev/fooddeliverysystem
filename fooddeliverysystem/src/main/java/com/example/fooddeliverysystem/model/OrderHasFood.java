@@ -14,7 +14,7 @@ public class OrderHasFood {
     @EmbeddedId
     private OrderHasFoodKey orderHasFoodKey;
 
-   
+
 
     @Column(name = "kolicina")
     private Integer quantity;

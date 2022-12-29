@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Embeddable
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class OrderHasFoodKey implements Serializable {
 
     @Column(name = "id_stavka")
@@ -20,5 +20,8 @@ public class OrderHasFoodKey implements Serializable {
     @Column(name = "naracka_id")
     private Long orderId;
 
-
+    public OrderHasFoodKey(Long foodItemId, Long orderId) {
+        this.foodItemId = foodItemId;
+        this.orderId = orderId;
+    }
 }

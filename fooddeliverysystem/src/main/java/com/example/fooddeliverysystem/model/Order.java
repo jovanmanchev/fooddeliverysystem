@@ -19,6 +19,7 @@ public class Order {
 
     @Id
     @Column(name = "naracka_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
     @Column(name = "status")
@@ -43,6 +44,10 @@ public class Order {
     @JoinColumn(name = "naplata_id")
     private OrderPayment orderPayment;
 
-
-
+    public Order(String orderStatus, Timestamp orderDate, SalePlace salePlace, Consumer consumer) {
+        this.orderStatus = orderStatus;
+        this.orderDate = orderDate;
+        this.salePlace = salePlace;
+        this.consumer = consumer;
+    }
 }
