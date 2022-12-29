@@ -4,8 +4,10 @@ import com.example.fooddeliverysystem.exceptions.FoodItemNotFoundException;
 import com.example.fooddeliverysystem.exceptions.SalePlaceNotFoundException;
 import com.example.fooddeliverysystem.model.*;
 import com.example.fooddeliverysystem.repository.PriceRepository;
+import com.example.fooddeliverysystem.repository.storedprocedure.OrderCostCalcualte;
 import com.example.fooddeliverysystem.service.*;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,18 +24,23 @@ import java.util.stream.Collectors;
 @Controller
 public class SalePlaceController {
 
+    private final OrderCostCalcualte orderCostCalcualte;
+
     private final SalePlaceService salePlaceService;
     private final PriceService priceService;
     private final OrderService orderService;
     private final HasFoodService hasFoodService;
     private final FoodItemService foodItemService;
+
+
     public SalePlaceController(SalePlaceService salePlaceService, PriceService priceService, OrderService orderService, HasFoodService hasFoodService,
-                               FoodItemService foodItemService) {
+                               FoodItemService foodItemService, OrderCostCalcualte orderCostCalcualte) {
         this.salePlaceService = salePlaceService;
         this.priceService = priceService;
         this.orderService = orderService;
         this.hasFoodService = hasFoodService;
         this.foodItemService = foodItemService;
+        this.orderCostCalcualte = orderCostCalcualte;
     }
 
     @GetMapping("/salePlaces")
@@ -73,7 +80,9 @@ public class SalePlaceController {
                                          @RequestParam List<Integer> quantity,
                                          HttpServletRequest httpServletRequest){
         try {
+
             this.orderService.placeOrder(id, foodIds, foodPrice, quantity, httpServletRequest.getRemoteUser());
+
         } catch (SalePlaceNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -82,6 +91,7 @@ public class SalePlaceController {
 
     @GetMapping("/salePlace/Orders")
     public String showSalePlaceOrders(Model model, HttpServletRequest httpServletRequest){
+
             Map<Long, List<FoodItem>> map = new HashMap<>();
             String username = httpServletRequest.getRemoteUser();
         try {

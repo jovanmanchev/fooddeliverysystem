@@ -1,9 +1,11 @@
 package com.example.fooddeliverysystem.service.impl;
 
+import com.example.fooddeliverysystem.exceptions.FoodItemNotFoundException;
 import com.example.fooddeliverysystem.exceptions.SalePlaceNotFoundException;
 import com.example.fooddeliverysystem.model.*;
 import com.example.fooddeliverysystem.repository.*;
 import com.example.fooddeliverysystem.service.OrderService;
+import com.example.fooddeliverysystem.service.PriceService;
 import com.example.fooddeliverysystem.service.SalePlaceService;
 import com.example.fooddeliverysystem.service.UserService;
 import org.springframework.stereotype.Service;
@@ -22,13 +24,19 @@ public class OrderServiceImpl implements OrderService {
     private final OrderHasFoodRepository orderHasFoodRepository;
     private final UserRepository userRepository;
     private final ConsumerRepository consumerRepository;
+
+    private final FoodItemRepository foodItemRepository;
+
+    private final PriceService priceService;
     public OrderServiceImpl(SalePlaceService salePlaceRepository, OrderRepository orderRepository, OrderHasFoodRepository orderHasFoodRepository, UserRepository userRepository,
-                            ConsumerRepository consumerRepository) {
+                            ConsumerRepository consumerRepository, FoodItemRepository foodItemRepository, PriceService priceService) {
         this.salePlaceService = salePlaceRepository;
         this.orderRepository = orderRepository;
         this.orderHasFoodRepository = orderHasFoodRepository;
         this.userRepository = userRepository;
         this.consumerRepository = consumerRepository;
+        this.foodItemRepository = foodItemRepository;
+        this.priceService = priceService;
     }
 
     @Override
@@ -54,5 +62,21 @@ public class OrderServiceImpl implements OrderService {
         Order order = this.orderRepository.findById(orderId).get();
         order.setOrderStatus(status);
         return this.orderRepository.save(order);
+    }
+
+    @Override
+    public Integer calculateCostOfOrder(Long orderId)  throws FoodItemNotFoundException {
+        Integer totalCost = 0;
+        List<OrderHasFood> orderHasFoodList = this.orderHasFoodRepository.findAllByOrderHasFoodKeyOrderId(orderId);
+        for(OrderHasFood orderHasFood: orderHasFoodList){
+            Long foodItemId = orderHasFood.getOrderHasFoodKey().getFoodItemId();
+            FoodItem foodItem = this.foodItemRepository.findById(foodItemId).get();
+            Integer quantity = orderHasFood.getQuantity();
+            Integer price = this.priceService.findCurrentPriceForFoodItem(foodItem).getCost();
+            totalCost += quantity * price;
+
+        }
+
+        return totalCost;
     }
 }

@@ -51,6 +51,7 @@ public class SalePlaceServiceImpl implements SalePlaceService {
     @Override
     public SalePlace findSalePlaceForUser(String username){
         User user = this.userRepository.findByUsername(username).get();
+
         SalePlaceEmployee salePlaceEmployee = this.salePlaceEmployeeRepository.findById(user.getUser_id()).get();
         return salePlaceEmployee.getSalePlace();
     }

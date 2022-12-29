@@ -15,6 +15,13 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@NamedStoredProcedureQuery(
+        name = "calculate_cost_of_order_food2",
+        procedureName = "calculate_cost_of_order_food2",
+        parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN, type = Integer.class, name = "order_id")
+        }
+)
 public class Order {
 
     @Id
@@ -44,10 +51,13 @@ public class Order {
     @JoinColumn(name = "naplata_id")
     private OrderPayment orderPayment;
 
+    @Transient
+    private Integer orderCost;
     public Order(String orderStatus, Timestamp orderDate, SalePlace salePlace, Consumer consumer) {
         this.orderStatus = orderStatus;
         this.orderDate = orderDate;
         this.salePlace = salePlace;
         this.consumer = consumer;
+
     }
 }
