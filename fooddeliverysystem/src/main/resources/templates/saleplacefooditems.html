@@ -10,9 +10,10 @@
       <p th:text = "${error}"></p>
     </div>
 <div th:each = "foodItem : ${foodItems}">
-    <p th:text = "${foodItem.getFoodItemName()}"></p>
-    <p th:if="${foodItemStat.index < prices.size()}" th:text = "${prices.get(foodItemStat.index).getCost()}"></p>
-
+    <div>
+    <span th:text = "${foodItem.getFoodItemName()}"></span>
+    <span th:if="${foodItemStat.index < prices.size()}" th:text = "${prices.get(foodItemStat.index).getCost()}"></span>
+    </div>
 </div>
 </body>
 </html>
