@@ -9,6 +9,7 @@
     <p th:text = "${order.getOrderId()}"></p>
     <p th:text = "${order.getOrderStatus()}"></p>
     <p th:each = "food : ${orderHasFoods.get(order.getOrderId())}" th:text = "${food.getFoodItemName()}"></p>
+    <a th:href="@{'/changeOrderStatus/{id}' (id = ${order.getOrderId()})}">Промени го статусот во спремна</a>
 </div>
 </body>
 </html>

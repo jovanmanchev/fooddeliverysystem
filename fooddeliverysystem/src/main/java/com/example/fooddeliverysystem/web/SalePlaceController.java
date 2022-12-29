@@ -109,4 +109,9 @@ public class SalePlaceController {
         return "saleplaceorders";
 
     }
+    @GetMapping("/changeOrderStatus/{id}")
+    public String changeOrderStauts(@PathVariable Long id){
+        this.orderService.changeOrderStatus(id, "spremna");
+        return "redirect:/salePlace/Orders";
+    }
 }

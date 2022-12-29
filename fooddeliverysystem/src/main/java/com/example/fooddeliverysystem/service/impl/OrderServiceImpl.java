@@ -48,4 +48,11 @@ public class OrderServiceImpl implements OrderService {
 
 
     }
+
+    @Override
+    public Order changeOrderStatus(Long orderId, String status) {
+        Order order = this.orderRepository.findById(orderId).get();
+        order.setOrderStatus(status);
+        return this.orderRepository.save(order);
+    }
 }
