@@ -10,6 +10,7 @@
     </div>
 <div th:each = "foodItem : ${foodItems}">
     <p th:text = "${foodItem.getFoodItemName()}"></p>
+    <p th:if="${foodItemStat.index < prices.size()}" th:text = "${prices.get(foodItemStat.index).getCost()}"></p>
 </div>
 </body>
 </html>

@@ -8,6 +8,7 @@ import com.example.fooddeliverysystem.service.PriceService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PriceServiceImpl implements PriceService {
@@ -25,6 +26,11 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public Price findCurrentPriceForFoodItem(FoodItem foodItem) throws FoodItemNotFoundException {
-        return null;
+        List<Price> pricesForFoodItem = this.priceRepository.findAllByPriceKey_FoodItem(foodItem);
+        Optional<Price> currentPrice = pricesForFoodItem.stream()
+                .sorted((price1, price2) -> (int) (price2.getPriceKey().getPriceNumber() - price1.getPriceKey().getPriceNumber()))
+                .findFirst();
+        return currentPrice.orElseThrow(() -> new FoodItemNotFoundException("food item cannot be found"));
+
     }
 }
