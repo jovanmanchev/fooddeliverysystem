@@ -1,5 +1,6 @@
 package com.example.fooddeliverysystem.exceptions;
 
+
 import com.example.fooddeliverysystem.repository.SalePlaceRepository;
 
 public class SalePlaceNotFoundException extends Exception{

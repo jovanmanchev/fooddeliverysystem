@@ -27,4 +27,7 @@ public class SalePlaceServiceImpl implements SalePlaceService {
         return this.salePlaceRepository.findById(id).orElseThrow(() -> new SalePlaceNotFoundException("Sale place not found"));
 
     }
+
+
 }
+
