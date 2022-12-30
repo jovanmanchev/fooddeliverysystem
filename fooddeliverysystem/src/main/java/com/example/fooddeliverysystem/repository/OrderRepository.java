@@ -1,5 +1,6 @@
 package com.example.fooddeliverysystem.repository;
 
+import com.example.fooddeliverysystem.model.Deliver;
 import com.example.fooddeliverysystem.model.Order;
 import com.example.fooddeliverysystem.model.SalePlace;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +14,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findAllBySalePlaceAndOrderStatus(SalePlace salePlace, String orderStatus);
 
-    @Procedure(name = "calculate_cost_of_order_food2")
-    Integer getCostOfOrder(Integer order_id);
+    List<Order> findAllByOrderStatus(String status);
+
+    List<Order> findAllByOrderStatusAndDeliver(String status, Deliver deliver);
 }

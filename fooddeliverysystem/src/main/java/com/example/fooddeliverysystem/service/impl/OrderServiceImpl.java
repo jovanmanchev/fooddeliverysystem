@@ -26,10 +26,10 @@ public class OrderServiceImpl implements OrderService {
     private final ConsumerRepository consumerRepository;
 
     private final FoodItemRepository foodItemRepository;
-
+    private final DeliverRepository deliverRepository;
     private final PriceService priceService;
     public OrderServiceImpl(SalePlaceService salePlaceRepository, OrderRepository orderRepository, OrderHasFoodRepository orderHasFoodRepository, UserRepository userRepository,
-                            ConsumerRepository consumerRepository, FoodItemRepository foodItemRepository, PriceService priceService) {
+                            ConsumerRepository consumerRepository, FoodItemRepository foodItemRepository, PriceService priceService, DeliverRepository deliverRepository) {
         this.salePlaceService = salePlaceRepository;
         this.orderRepository = orderRepository;
         this.orderHasFoodRepository = orderHasFoodRepository;
@@ -37,6 +37,7 @@ public class OrderServiceImpl implements OrderService {
         this.consumerRepository = consumerRepository;
         this.foodItemRepository = foodItemRepository;
         this.priceService = priceService;
+        this.deliverRepository = deliverRepository;
     }
 
     @Override
@@ -61,6 +62,7 @@ public class OrderServiceImpl implements OrderService {
     public Order changeOrderStatus(Long orderId, String status) {
         Order order = this.orderRepository.findById(orderId).get();
         order.setOrderStatus(status);
+
         return this.orderRepository.save(order);
     }
 
@@ -78,5 +80,26 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return totalCost;
+    }
+
+    @Override
+    public List<Order> findAllOrdersReadyToBeDelivered() {
+        return this.orderRepository.findAllByOrderStatus("spremna");
+    }
+
+    @Override
+    public List<Order> findAllOrdersForDeliver(String username) {
+        User user = this.userRepository.findByUsername(username).get();
+        Deliver deliver = this.deliverRepository.findById(user.getUser_id()).get();
+        return this.orderRepository.findAllByOrderStatusAndDeliver("prevzemena", deliver);
+    }
+
+    @Override
+    public Order updateOrderDeliver(String username, Long orderId) {
+        User user = this.userRepository.findByUsername(username).get();
+        Deliver deliver = this.deliverRepository.findById(user.getUser_id()).get();
+        Order order = this.orderRepository.findById(orderId).get();
+        order.setDeliver(deliver);
+        return this.orderRepository.save(order);
     }
 }

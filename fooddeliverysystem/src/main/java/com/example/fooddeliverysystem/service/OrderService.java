@@ -13,4 +13,9 @@ public interface OrderService {
     Order changeOrderStatus(Long orderId, String status);
 
     Integer calculateCostOfOrder(Long orderId) throws FoodItemNotFoundException;
+    List<Order> findAllOrdersReadyToBeDelivered();
+
+    List<Order> findAllOrdersForDeliver(String username);
+
+    Order updateOrderDeliver(String username, Long orderId);
 }

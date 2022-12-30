@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:each = "order : ${orders}">
+    <span th:text = "${order.getConsumer().getLocation().getAddress()}"></span>
+    <span th:text = "${order.getConsumer().getLocation().getNumber()}"></span>
+    <span th:if="${orderStat.index < costs.size()}" th:text = "${costs.get(orderStat.index)}"></span>
+    <span th:text = "${order.getSalePlace().getSalePlaceName()}"></span>
+    <a th:href="@{'/takeOrder/{id}' (id = ${order.getOrderId()})}">Превземи нарачка</a>
+</div>
+</body>
+</html>
