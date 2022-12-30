@@ -62,4 +62,9 @@ public class DeliveryController {
         model.addAttribute("costs", costs);
         return "ordersfordeliver";
     }
+    @GetMapping("/orderPayment/{id}")
+    public String markOrderAsPayed(@PathVariable Long id){
+
+        return "redirect:/showOrderDeliverer";
+    }
 }

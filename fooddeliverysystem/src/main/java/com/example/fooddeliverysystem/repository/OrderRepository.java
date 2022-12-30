@@ -1,5 +1,6 @@
 package com.example.fooddeliverysystem.repository;
 
+import com.example.fooddeliverysystem.model.Consumer;
 import com.example.fooddeliverysystem.model.Deliver;
 import com.example.fooddeliverysystem.model.Order;
 import com.example.fooddeliverysystem.model.SalePlace;
@@ -17,4 +18,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findAllByOrderStatus(String status);
 
     List<Order> findAllByOrderStatusAndDeliver(String status, Deliver deliver);
+
+    List<Order> findAllByConsumer(Consumer consumer);
 }

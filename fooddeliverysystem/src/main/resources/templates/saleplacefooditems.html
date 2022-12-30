@@ -16,6 +16,10 @@
             <input th:if="${foodItemStat.index < prices.size()}" th:value = "${prices.get(foodItemStat.index).getCost()}" name = "foodPrice">
             <input type="number" name = "quantity">
         </div>
+     <select name="typeOfPayment" id="typeOfPayment">
+         <option value="cash" >Во готово</option>
+         <option value="card" >Картичка</option>
+     </select>
      <input type="submit" value = "Направете нарачка">
  </form>
 </body>

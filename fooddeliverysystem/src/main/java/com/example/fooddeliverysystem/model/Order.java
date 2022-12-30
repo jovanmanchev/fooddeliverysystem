@@ -29,6 +29,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
+    @Column(name = "nacinplakjanje")
+    private String typeOfPayment;
+
     @Column(name = "status")
     private String orderStatus;
 
@@ -59,5 +62,13 @@ public class Order {
         this.salePlace = salePlace;
         this.consumer = consumer;
 
+    }
+
+    public Order(String typeOfPayment, String orderStatus, Timestamp orderDate, SalePlace salePlace, Consumer consumer) {
+        this.typeOfPayment = typeOfPayment;
+        this.orderStatus = orderStatus;
+        this.orderDate = orderDate;
+        this.salePlace = salePlace;
+        this.consumer = consumer;
     }
 }

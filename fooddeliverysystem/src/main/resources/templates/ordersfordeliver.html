@@ -10,6 +10,8 @@
     <span th:text = "${order.getConsumer().getLocation().getNumber()}"></span>
     <span th:text = "${costs.get(orderStat.index)}"></span>
     <span th:text = "${order.getSalePlace().getSalePlaceName()}"></span>
+    <span th:text = "${order.getTypeOfPayment()}"></span>
+    <a th:href="@{'/orderPayment/{id}' (id = ${order.getOrderId()})}">Потврдете дека е платена</a>
 </div>
 </body>
 </html>

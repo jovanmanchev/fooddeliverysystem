@@ -78,10 +78,11 @@ public class SalePlaceController {
                                          @RequestParam List<Long> foodIds,
                                          @RequestParam List<Integer> foodPrice,
                                          @RequestParam List<Integer> quantity,
+                                         @RequestParam String typeOfPayment,
                                          HttpServletRequest httpServletRequest){
         try {
 
-            this.orderService.placeOrder(id, foodIds, foodPrice, quantity, httpServletRequest.getRemoteUser());
+            this.orderService.placeOrder(typeOfPayment, id, foodIds, foodPrice, quantity, httpServletRequest.getRemoteUser());
 
         } catch (SalePlaceNotFoundException e) {
             throw new RuntimeException(e);
@@ -123,5 +124,13 @@ public class SalePlaceController {
     public String changeOrderStauts(@PathVariable Long id){
         this.orderService.changeOrderStatus(id, "spremna");
         return "redirect:/salePlace/Orders";
+    }
+
+    @GetMapping("/checkOrderStatus")
+    public String showOrderStatusToUser(HttpServletRequest httpServletRequest, Model model){
+        String username = httpServletRequest.getRemoteUser();
+        List<Order> orders = this.orderService.findAllOrdersForCustomer(username);
+        model.addAttribute("orders", orders);
+        return "showOrderStatusCustomer";
     }
 }

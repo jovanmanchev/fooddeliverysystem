@@ -1,6 +1,7 @@
 package com.example.fooddeliverysystem.service.impl;
 
 import com.example.fooddeliverysystem.exceptions.FoodItemNotFoundException;
+import com.example.fooddeliverysystem.exceptions.OrderNotFoundException;
 import com.example.fooddeliverysystem.exceptions.SalePlaceNotFoundException;
 import com.example.fooddeliverysystem.model.*;
 import com.example.fooddeliverysystem.repository.*;
@@ -41,11 +42,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void placeOrder(Long salePlaceId, List<Long> foodIds, List<Integer> foodPrices, List<Integer> foodQuantities, String username) throws SalePlaceNotFoundException {
+    public void placeOrder(String typeOfPayment, Long salePlaceId, List<Long> foodIds, List<Integer> foodPrices, List<Integer> foodQuantities, String username) throws SalePlaceNotFoundException {
         SalePlace salePlace = this.salePlaceService.findSalePlaceServiceById(salePlaceId);
         User user = this.userRepository.findByUsername(username).get();
         Consumer consumer = this.consumerRepository.findById(user.getUser_id()).get();
-        Order order = new Order("kreirana", Timestamp.valueOf(LocalDateTime.now()), salePlace ,consumer);
+        Order order = new Order(typeOfPayment,"kreirana", Timestamp.valueOf(LocalDateTime.now()), salePlace ,consumer);
         List<OrderHasFood> orderHasFoodList = new ArrayList<>();
         order = orderRepository.save(order);
         for(int i = 0; i < foodIds.size(); i++){
@@ -101,5 +102,17 @@ public class OrderServiceImpl implements OrderService {
         Order order = this.orderRepository.findById(orderId).get();
         order.setDeliver(deliver);
         return this.orderRepository.save(order);
+    }
+
+    @Override
+    public Order findOrderById(Long orderId) throws OrderNotFoundException {
+        return this.orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException("order cannot be found"));
+    }
+
+    @Override
+    public List<Order> findAllOrdersForCustomer(String username) {
+        User user = this.userRepository.findByUsername(username).get();
+        Consumer customer = this.consumerRepository.findById(user.getUser_id()).get();
+        return this.orderRepository.findAllByConsumer(customer);
     }
 }

@@ -30,4 +30,11 @@ public class OrderPayment {
     @JoinColumn(name = "dostavuvac_id")
     private Deliver deliver;
 
+    public OrderPayment(Integer orderCost, String orderPaymentType, Timestamp orderPaymentDate, Consumer consumer, Deliver deliver) {
+        this.orderCost = orderCost;
+        this.orderPaymentType = orderPaymentType;
+        this.orderPaymentDate = orderPaymentDate;
+        this.consumer = consumer;
+        this.deliver = deliver;
+    }
 }
