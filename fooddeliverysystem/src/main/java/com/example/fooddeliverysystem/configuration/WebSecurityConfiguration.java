@@ -26,6 +26,7 @@ public class WebSecurityConfiguration   {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/salePlaces").hasAnyRole("ADMIN", "CONSUMER")
+                .requestMatchers("/checkOrderStatus").hasAnyRole("ADMIN", "CONSUMER")
                 .requestMatchers("/salePlace/Orders").hasAnyRole("ADMIN", "SALEPLACEEMPLOYEE")
                 .requestMatchers("/salePlace/**").hasAnyRole("ADMIN", "CONSUMER")
                 .requestMatchers("/checkOrderStatus").hasAnyRole("ADMIN", "CONSUMER")

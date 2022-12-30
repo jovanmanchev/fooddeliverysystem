@@ -87,7 +87,7 @@ public class SalePlaceController {
         } catch (SalePlaceNotFoundException e) {
             throw new RuntimeException(e);
         }
-        return "redirect:/salePlaces";
+        return "redirect:/checkOrderStatus";
     }
 
     @GetMapping("/salePlace/Orders")
