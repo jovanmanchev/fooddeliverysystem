@@ -115,4 +115,9 @@ public class OrderServiceImpl implements OrderService {
         Consumer customer = this.consumerRepository.findById(user.getUser_id()).get();
         return this.orderRepository.findAllByConsumer(customer);
     }
+
+    @Override
+    public void saveOrder(Order order) {
+        this.orderRepository.save(order);
+    }
 }

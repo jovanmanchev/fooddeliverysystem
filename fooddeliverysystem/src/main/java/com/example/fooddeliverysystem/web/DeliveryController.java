@@ -2,7 +2,9 @@ package com.example.fooddeliverysystem.web;
 
 
 import com.example.fooddeliverysystem.exceptions.FoodItemNotFoundException;
+import com.example.fooddeliverysystem.exceptions.OrderNotFoundException;
 import com.example.fooddeliverysystem.model.Order;
+import com.example.fooddeliverysystem.service.OrderPaymentService;
 import com.example.fooddeliverysystem.service.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
@@ -19,8 +21,10 @@ public class DeliveryController {
 
     private final OrderService orderService;
 
-    public DeliveryController(OrderService orderService) {
+    private final OrderPaymentService orderPaymentService;
+    public DeliveryController(OrderService orderService, OrderPaymentService orderPaymentService) {
         this.orderService = orderService;
+        this.orderPaymentService = orderPaymentService;
     }
 
     @GetMapping("/deliveryOrders")
@@ -64,7 +68,13 @@ public class DeliveryController {
     }
     @GetMapping("/orderPayment/{id}")
     public String markOrderAsPayed(@PathVariable Long id){
-
+        try {
+            this.orderPaymentService.createOrderPayment(id);
+        } catch (OrderNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (FoodItemNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
         return "redirect:/showOrderDeliverer";
     }
 }

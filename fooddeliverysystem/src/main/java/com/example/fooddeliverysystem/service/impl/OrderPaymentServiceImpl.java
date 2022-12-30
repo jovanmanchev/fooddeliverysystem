@@ -6,6 +6,7 @@ import com.example.fooddeliverysystem.model.Consumer;
 import com.example.fooddeliverysystem.model.Deliver;
 import com.example.fooddeliverysystem.model.Order;
 import com.example.fooddeliverysystem.model.OrderPayment;
+import com.example.fooddeliverysystem.repository.OrderPaymentRepository;
 import com.example.fooddeliverysystem.service.OrderPaymentService;
 import com.example.fooddeliverysystem.service.OrderService;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,14 @@ import java.time.LocalDateTime;
 public class OrderPaymentServiceImpl implements OrderPaymentService {
 
     private final OrderService orderService;
+    private final OrderPaymentRepository orderPaymentRepository;
 
-    public OrderPaymentServiceImpl(OrderService orderService) {
+    public OrderPaymentServiceImpl(OrderService orderService, OrderPaymentRepository orderPaymentRepository) {
         this.orderService = orderService;
+        this.orderPaymentRepository = orderPaymentRepository;
     }
+
+
 
     @Override
     public void createOrderPayment(Long orderId) throws OrderNotFoundException, FoodItemNotFoundException {
@@ -29,6 +34,7 @@ public class OrderPaymentServiceImpl implements OrderPaymentService {
       Deliver deliver = order.getDeliver();
       Consumer consumer = order.getConsumer();
       OrderPayment orderPayment = new OrderPayment(orderCost, order.getTypeOfPayment(), Timestamp.valueOf(LocalDateTime.now()), consumer, deliver);
-
+      order.setOrderStatus("zavrsena");
+      this.orderPaymentRepository.save(orderPayment);
     }
 }

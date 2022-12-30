@@ -11,6 +11,7 @@ public class OrderPayment {
 
     @Id
     @Column(name = "naplata_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderPaymentId;
 
     @Column(name = "iznos")
@@ -36,5 +37,8 @@ public class OrderPayment {
         this.orderPaymentDate = orderPaymentDate;
         this.consumer = consumer;
         this.deliver = deliver;
+    }
+    public OrderPayment(){
+
     }
 }

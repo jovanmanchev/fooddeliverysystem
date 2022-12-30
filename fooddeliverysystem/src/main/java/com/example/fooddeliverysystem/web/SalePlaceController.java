@@ -133,4 +133,10 @@ public class SalePlaceController {
         model.addAttribute("orders", orders);
         return "showOrderStatusCustomer";
     }
+
+    @GetMapping("/home")
+    public String showHomePage(){
+
+        return "home";
+    }
 }

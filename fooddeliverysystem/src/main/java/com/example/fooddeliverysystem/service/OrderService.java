@@ -23,4 +23,6 @@ public interface OrderService {
     Order findOrderById(Long orderId) throws OrderNotFoundException;
 
     List<Order> findAllOrdersForCustomer(String username);
+
+    void saveOrder(Order order);
 }
