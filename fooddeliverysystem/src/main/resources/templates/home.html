@@ -5,12 +5,14 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 55px">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto" >
+            <!--<li class="nav-item"><a th:href="@{/home}"><img src="../images/logo.jpg" height="60px" width="121px"></a></li>-->
+            <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none; margin-right: 20px" th:href="@{/home}">FoodDelivery</a></li>
             <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none; margin-right: 20px" th:href="@{/salePlaces}" sec:authorize="hasRole('ROLE_CONSUMER')">Продажни места</a></li>
             <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none; margin-right: 20px" th:href="@{/checkOrderStatus}" sec:authorize="hasRole('ROLE_CONSUMER')">Статус нарачки</a></li>
             <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none; margin-right: 20px" th:href="@{/salePlace/Orders}" sec:authorize="hasRole('ROLE_SALEPLACEEMPLOYEE')">Нарачки</a></li>

@@ -7,7 +7,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 55px">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none;"
@@ -16,18 +16,15 @@
     </div>
 </nav>
 
-<table style="margin-left: 38%;">
-    <thead>
-    <tr>
-        <td class="display-4">Продажно место</td>
-    </tr>
-    </thead>
+
+<h1 class="display-4" style="margin-left: 30%">Продажни места</h1>
+<table class="table">
     <tbody>
     <tr th:each="salePlace : ${salePlaces}">
         <td>
             <a th:href="@{'/salePlace/{id}'(id = ${salePlace.getSalePalceId()})}"
                th:text="${salePlace.getSalePlaceName()}"
-               style="font-weight: bolder; text-decoration: none; margin-left: 10px; text-transform: uppercase"></a>
+               style="font-weight: bolder; text-decoration: none; margin-left: 10px; text-transform: uppercase; color:black;"></a>
         </td>
     </tr>
     </tbody>
