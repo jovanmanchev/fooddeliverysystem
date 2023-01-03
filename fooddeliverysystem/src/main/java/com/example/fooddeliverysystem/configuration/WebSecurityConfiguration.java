@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfiguration   {
+public class WebSecurityConfiguration {
 
     private final PasswordEncoder passwordEncoder;
     private final UsernameAndPasswordAuthProvider usernameAndPasswordAuthProvider;
@@ -21,7 +21,7 @@ public class WebSecurityConfiguration   {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf()
                 .disable()
                 .authorizeHttpRequests()
@@ -43,11 +43,11 @@ public class WebSecurityConfiguration   {
                 .defaultSuccessUrl("/home", true)
                 .and()
                 .logout()
-                    .logoutUrl("/logout")
-                    .clearAuthentication(true)
-                    .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID")
-                    .logoutSuccessUrl("/login");
+                .logoutUrl("/logout")
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/login");
 
 
         return http.build();
