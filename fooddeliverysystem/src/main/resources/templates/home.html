@@ -17,11 +17,6 @@
             <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none; margin-right: 20px" th:href="@{/deliveryOrders}" sec:authorize="hasRole('ROLE_DELIVER')">Превземете нарачка</a></li>
             <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none; margin-right: 20px" th:href="@{/showOrderDeliverer}" sec:authorize="hasRole('ROLE_DELIVER')">Ваши нарачки</a></li>
         </ul>
-        <!--<a th:href="@{/salePlaces}" sec:authorize="hasRole('ROLE_CONSUMER')">Продажни места</a>
-        <a th:href="@{/checkOrderStatus}" sec:authorize="hasRole('ROLE_CONSUMER')">Статус нарачки</a>
-        <a th:href="@{/salePlace/Orders}" sec:authorize="hasRole('ROLE_SALEPLACEEMPLOYEE')">Нарачки</a>
-        <a th:href="@{/deliveryOrders}" sec:authorize="hasRole('ROLE_DELIVER')">Превземете нарачка</a>
-        <a th:href="@{/showOrderDeliverer}" sec:authorize="hasRole('ROLE_DELIVER')">Ваши нарачки</a>-->
     </div>
 </nav>
 </body>
