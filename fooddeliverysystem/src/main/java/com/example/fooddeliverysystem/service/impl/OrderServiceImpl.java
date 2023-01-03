@@ -46,12 +46,16 @@ public class OrderServiceImpl implements OrderService {
         SalePlace salePlace = this.salePlaceService.findSalePlaceServiceById(salePlaceId);
         User user = this.userRepository.findByUsername(username).get();
         Consumer consumer = this.consumerRepository.findById(user.getUser_id()).get();
+
         Order order = new Order(typeOfPayment,"kreirana", Timestamp.valueOf(LocalDateTime.now()), salePlace ,consumer);
         List<OrderHasFood> orderHasFoodList = new ArrayList<>();
         order = orderRepository.save(order);
         for(int i = 0; i < foodIds.size(); i++){
-            OrderHasFood orderHasFood = new OrderHasFood(new OrderHasFoodKey(foodIds.get(i), order.getOrderId()), foodQuantities.get(i));
-            orderHasFoodList.add(orderHasFood);
+       
+            if(foodQuantities.get(i) != null) {
+                OrderHasFood orderHasFood = new OrderHasFood(new OrderHasFoodKey(foodIds.get(i), order.getOrderId()), foodQuantities.get(i));
+                orderHasFoodList.add(orderHasFood);
+            }
         }
         this.orderHasFoodRepository.saveAll(orderHasFoodList);
 
