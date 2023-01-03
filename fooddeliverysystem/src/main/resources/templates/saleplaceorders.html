@@ -7,7 +7,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 55px">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none;"
@@ -16,6 +16,7 @@
     </div>
 </nav>
 
+<<<<<<< HEAD
 <div class="container">
     <div class="row-3" th:each="order: ${orders}" style="display: inline; vertical-align: top;">
         <div class="col-4" style="border: 1px solid black; background-color: lightgray; display: inline-block; margin-right: 10px; margin-top: 10px">
@@ -26,6 +27,17 @@
             <a style="text-decoration: none; font-weight: bolder; margin-left: 20px"
                th:href="@{'/changeOrderStatus/{id}' (id = ${order.getOrderId()})}">Промени го статусот во спремна</a>
         </div>
+=======
+<div style="width: 1500px; height: 1000px; margin-top: 20px; margin-left:20px;">
+    <div th:each="order: ${orders}"
+         style="width: 300px; padding-top: 10px; background-color: lightgray; margin-bottom: 10px ; margin-right: 15px; height: 170px; display: inline-block; border: 1px solid black">
+        <p style="margin-left: 20px;" th:text="'Бр.' + ${order.getOrderId()}"></p>
+        <p style="margin-left: 20px;" th:text="'Статус: ' + ${order.getOrderStatus()}"></p>
+        <p style="margin-left: 20px;" th:each="food : ${orderHasFoods.get(order.getOrderId())}"
+           th:text="'Производ: ' + ${food.getFoodItemName()}"></p>
+        <a style="text-decoration: none; font-weight: bolder; margin-left: 20px"
+           th:href="@{'/changeOrderStatus/{id}' (id = ${order.getOrderId()})}">Промени го статусот во спремна</a>
+>>>>>>> 235eed5bd322ca8ad4fa6719a43a3783423e128c
     </div>
 </div>
 </body>
