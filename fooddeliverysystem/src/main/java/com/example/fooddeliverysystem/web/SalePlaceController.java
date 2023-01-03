@@ -86,7 +86,6 @@ public class SalePlaceController {
             this.orderService.placeOrder(typeOfPayment, id, foodIds, foodPrice, quantity, httpServletRequest.getRemoteUser());
 
         } catch (SalePlaceNotFoundException e) {
-            System.out.println(id + " " + foodIds + " " + foodPrice + " " + quantity);
             throw new RuntimeException(e);
         }
         return "redirect:/checkOrderStatus";
