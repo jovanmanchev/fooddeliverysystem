@@ -25,7 +25,7 @@
     <thead>
     <tr>
         <td>Продукт</td>
-        <td>Цена</td>
+        <td style="width: 50px;">Цена</td>
         <td>Количина</td>
     </tr>
     </thead>
@@ -38,8 +38,9 @@
                        name="foodIds"/>
             </td>
             <td>
-                <input disabled th:if="${foodItemStat.index < prices.size()}"
+                <input hidden th:if="${foodItemStat.index < prices.size()}"
                        th:value="${prices.get(foodItemStat.index).getCost()}"
+                       th:text="${prices.get(foodItemStat.index).getCost()}"
                        name="foodPrice">
             </td>
             <td>

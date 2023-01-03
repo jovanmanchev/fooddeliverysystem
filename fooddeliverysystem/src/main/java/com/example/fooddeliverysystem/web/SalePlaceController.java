@@ -44,14 +44,15 @@ public class SalePlaceController {
     }
 
     @GetMapping("/salePlaces")
-    public String showSalePlaces(Model model){
+    public String showSalePlaces(Model model) {
         List<SalePlace> salePlaceList = this.salePlaceService.findAll();
         model.addAttribute("salePlaces", salePlaceList);
 
         return "saleplaces";
     }
+
     @GetMapping("/salePlace/{id}")
-    public String showSalePlaceFooItems(@PathVariable Long id, Model model){
+    public String showSalePlaceFooItems(@PathVariable Long id, Model model) {
         try {
             model.addAttribute("foodItems", this.salePlaceService.findSalePlaceServiceById(id).getFoodItemList());
             model.addAttribute("salePlaceId", id);
@@ -68,45 +69,46 @@ public class SalePlaceController {
             System.out.println(prices);
 
             model.addAttribute("prices", prices);
-        }catch (SalePlaceNotFoundException salePlaceNotFoundException){
+        } catch (SalePlaceNotFoundException salePlaceNotFoundException) {
             model.addAttribute("error", salePlaceNotFoundException.getMessage());
         }
         return "saleplacefooditems";
     }
+
     @PostMapping("/salePlace/{id}")
     public String createOrderInSalePlace(@PathVariable Long id,
                                          @RequestParam List<Long> foodIds,
                                          @RequestParam List<Integer> foodPrice,
                                          @RequestParam List<Integer> quantity,
                                          @RequestParam String typeOfPayment,
-                                         HttpServletRequest httpServletRequest){
+                                         HttpServletRequest httpServletRequest) {
         try {
-
             this.orderService.placeOrder(typeOfPayment, id, foodIds, foodPrice, quantity, httpServletRequest.getRemoteUser());
 
         } catch (SalePlaceNotFoundException e) {
+            System.out.println(id + " " + foodIds + " " + foodPrice + " " + quantity);
             throw new RuntimeException(e);
         }
         return "redirect:/checkOrderStatus";
     }
 
     @GetMapping("/salePlace/Orders")
-    public String showSalePlaceOrders(Model model, HttpServletRequest httpServletRequest){
+    public String showSalePlaceOrders(Model model, HttpServletRequest httpServletRequest) {
 
-            Map<Long, List<FoodItem>> map = new HashMap<>();
-            String username = httpServletRequest.getRemoteUser();
+        Map<Long, List<FoodItem>> map = new HashMap<>();
+        String username = httpServletRequest.getRemoteUser();
         try {
             List<Order> orders = this.salePlaceService.findAllCreatedOrders(username);
             List<OrderHasFood> orderHasFoodList = new ArrayList<>();
             model.addAttribute("orders", orders);
-            for(Order order: orders){
+            for (Order order : orders) {
                 List<OrderHasFood> inner = this.hasFoodService.findAllFoodsInOrder(order.getOrderId());
                 List<FoodItem> items = new ArrayList<>();
-                for(OrderHasFood orderHasFood: inner){
+                for (OrderHasFood orderHasFood : inner) {
                     FoodItem foodItems = this.salePlaceService.findSalePlaceServiceById(this.salePlaceService.findSalePlaceForUser(username).getSalePalceId())
                             .getFoodItemList()
                             .stream().filter(foodItem -> foodItem.getFoodItemId().equals(orderHasFood.getOrderHasFoodKey().getFoodItemId()))
-                                    .findFirst().get();
+                            .findFirst().get();
                     items.add(foodItems);
 
                 }
@@ -120,14 +122,15 @@ public class SalePlaceController {
         return "saleplaceorders";
 
     }
+
     @GetMapping("/changeOrderStatus/{id}")
-    public String changeOrderStauts(@PathVariable Long id){
+    public String changeOrderStauts(@PathVariable Long id) {
         this.orderService.changeOrderStatus(id, "spremna");
         return "redirect:/salePlace/Orders";
     }
 
     @GetMapping("/checkOrderStatus")
-    public String showOrderStatusToUser(HttpServletRequest httpServletRequest, Model model){
+    public String showOrderStatusToUser(HttpServletRequest httpServletRequest, Model model) {
         String username = httpServletRequest.getRemoteUser();
         List<Order> orders = this.orderService.findAllOrdersForCustomer(username);
         model.addAttribute("orders", orders);
@@ -135,7 +138,7 @@ public class SalePlaceController {
     }
 
     @GetMapping("/home")
-    public String showHomePage(){
+    public String showHomePage() {
 
         return "home";
     }
