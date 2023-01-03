@@ -2,25 +2,65 @@
 <html lang="en">
 <head>
 
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <div th:if="${error != null}">
-      <p th:text = "${error}"></p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none;"
+                                    th:href="@{/home}">Врати се назад</a></li>
+        </ul>
     </div>
- <form th:action="@{'/salePlace/{id}'(id = ${salePlaceId})}" th:method="POST">
-        <div th:each = "foodItem : ${foodItems}">
+</nav>
 
-            <input th:text = "${foodItem.getFoodItemName()}" th:value = "${foodItem.getFoodItemId()}" name = "foodIds" />
-            <input th:if="${foodItemStat.index < prices.size()}" th:value = "${prices.get(foodItemStat.index).getCost()}" name = "foodPrice">
-            <input type="number" name = "quantity">
-        </div>
-     <select name="typeOfPayment" id="typeOfPayment">
-         <option value="cash" >Во готово</option>
-         <option value="card" >Картичка</option>
-     </select>
-     <input type="submit" value = "Направете нарачка">
- </form>
+<div th:if="${error != null}">
+    <p th:text="${error}"></p>
+</div>
+
+<table style="margin-left: 32%; margin-top: 3%;">
+    <thead>
+    <tr>
+        <td>Продукт</td>
+        <td>Цена</td>
+        <td>Количина</td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <form th:action="@{'/salePlace/{id}'(id = ${salePlaceId})}" th:method="POST">
+        <tr th:each="foodItem : ${foodItems}">
+            <td>
+                <input hidden th:text="${foodItem.getFoodItemName()}" th:value="${foodItem.getFoodItemId()}"
+                       name="foodIds"/>
+            </td>
+            <td>
+                <input disabled th:if="${foodItemStat.index < prices.size()}"
+                       th:value="${prices.get(foodItemStat.index).getCost()}"
+                       name="foodPrice">
+            </td>
+            <td>
+                <input type="number" name="quantity">
+            </td>
+        </tr>
+        <tr>
+            <td style="float: right; margin-top: 5px;">
+                <select name="typeOfPayment" id="typeOfPayment">
+                    <option value="cash">Во готово</option>
+                    <option value="card">Картичка</option>
+                </select>
+            </td>
+            <td></td>
+            <td style="float: right">
+                <input type="submit" value="Направете нарачка">
+            </td>
+        </tr>
+    </form>
+    </tbody>
+</table>
+
 </body>
 </html>

@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<nav>
-    <a th:href= "@{/salePlaces}" sec:authorize="hasRole('ROLE_CONSUMER')">Продажни места</a>
-    <a th:href= "@{/checkOrderStatus}" sec:authorize="hasRole('ROLE_CONSUMER')">Статус нарачки</a>
-    <a th:href="@{/salePlace/Orders}" sec:authorize="hasRole('ROLE_SALEPLACEEMPLOYEE')">Нарачки</a>
-    <a th:href="@{/deliveryOrders}" sec:authorize="hasRole('ROLE_DELIVER')">Превземете нарачка</a>
-    <a th:href="@{/showOrderDeliverer}" sec:authorize="hasRole('ROLE_DELIVER')">Ваши нарачки</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto" >
+            <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none; margin-right: 20px" th:href="@{/salePlaces}" sec:authorize="hasRole('ROLE_CONSUMER')">Продажни места</a></li>
+            <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none; margin-right: 20px" th:href="@{/checkOrderStatus}" sec:authorize="hasRole('ROLE_CONSUMER')">Статус нарачки</a></li>
+            <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none; margin-right: 20px" th:href="@{/salePlace/Orders}" sec:authorize="hasRole('ROLE_SALEPLACEEMPLOYEE')">Нарачки</a></li>
+            <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none; margin-right: 20px" th:href="@{/deliveryOrders}" sec:authorize="hasRole('ROLE_DELIVER')">Превземете нарачка</a></li>
+            <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none; margin-right: 20px" th:href="@{/showOrderDeliverer}" sec:authorize="hasRole('ROLE_DELIVER')">Ваши нарачки</a></li>
+        </ul>
+        <!--<a th:href="@{/salePlaces}" sec:authorize="hasRole('ROLE_CONSUMER')">Продажни места</a>
+        <a th:href="@{/checkOrderStatus}" sec:authorize="hasRole('ROLE_CONSUMER')">Статус нарачки</a>
+        <a th:href="@{/salePlace/Orders}" sec:authorize="hasRole('ROLE_SALEPLACEEMPLOYEE')">Нарачки</a>
+        <a th:href="@{/deliveryOrders}" sec:authorize="hasRole('ROLE_DELIVER')">Превземете нарачка</a>
+        <a th:href="@{/showOrderDeliverer}" sec:authorize="hasRole('ROLE_DELIVER')">Ваши нарачки</a>-->
+    </div>
 </nav>
 </body>
 </html>
