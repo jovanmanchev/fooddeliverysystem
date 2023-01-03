@@ -7,7 +7,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 55px">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none;"
@@ -16,7 +16,7 @@
     </div>
 </nav>
 
-<div style="width: 1500px; height: 1000px; margin-top: 20px">
+<div style="width: 1500px; height: 1000px; margin-top: 20px; margin-left:20px;">
     <div th:each="order: ${orders}"
          style="width: 300px; padding-top: 10px; background-color: lightgray; margin-bottom: 10px ; margin-right: 15px; height: 170px; display: inline-block; border: 1px solid black">
         <p style="margin-left: 20px;" th:text="'Бр.' + ${order.getOrderId()}"></p>
