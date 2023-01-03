@@ -3,14 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<div th:each = "order : ${orders}">
-    <span th:text = "${order.getConsumer().getLocation().getAddress()}"></span>
-    <span th:text = "${order.getConsumer().getLocation().getNumber()}"></span>
-    <span th:if="${orderStat.index < costs.size()}" th:text = "${costs.get(orderStat.index)}"></span>
-    <span th:text = "${order.getSalePlace().getSalePlaceName()}"></span>
-    <a th:href="@{'/takeOrder/{id}' (id = ${order.getOrderId()})}">Превземи нарачка</a>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none;"
+                                    th:href="@{/home}">Врати се назад</a></li>
+        </ul>
+    </div>
+</nav>
+<div style="width: 1500px; height: 1000px; margin-top: 20px; margin-left: 20px">
+    <div th:each="order : ${orders}"
+         style="width: 350px; padding-top: 10px; background-color: lightgray; margin-bottom: 10px ; margin-right: 15px; height: 210px; display: inline-block; border: 1px solid black">
+        <p style="margin-left: 20px;" th:text="'Улица: ' + ${order.getConsumer().getLocation().getAddress()}"></p>
+        <p style="margin-left: 20px;" th:text="'Број: ' + ${order.getConsumer().getLocation().getNumber()}"></p>
+        <p style="margin-left: 20px;" th:if="${orderStat.index < costs.size()}"
+           th:text="'Цена: ' + ${costs.get(orderStat.index)}"></p>
+        <p style="margin-left: 20px;" th:text="'Продажно место: ' + ${order.getSalePlace().getSalePlaceName()}"></p>
+        <a style="text-decoration: none; font-weight: bolder; margin-left: 100px"
+           th:href="@{'/takeOrder/{id}' (id = ${order.getOrderId()})}">Превземи нарачка</a>
+    </div>
 </div>
 </body>
 </html>

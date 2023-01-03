@@ -40,7 +40,6 @@ public class DeliveryController {
         }
         model.addAttribute("orders", orders);
         model.addAttribute("costs", costs);
-
         return "delivery";
     }
 

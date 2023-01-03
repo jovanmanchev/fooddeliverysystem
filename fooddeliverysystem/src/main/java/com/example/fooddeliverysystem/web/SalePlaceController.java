@@ -119,6 +119,7 @@ public class SalePlaceController {
             model.addAttribute("error", "sale place not found");
         }
         return "saleplaceorders";
+
     }
 
     @GetMapping("/changeOrderStatus/{id}")
