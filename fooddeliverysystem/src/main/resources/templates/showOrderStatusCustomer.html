@@ -7,7 +7,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 55px">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none;"
@@ -16,18 +16,18 @@
     </div>
 </nav>
 <h1 class="display-4" style="margin-left: 30%">Историјат на вашите нарачки</h1>
-<table style="border: solid lightgray 1px; margin-left: 47%">
-    <thead>
-    <tr style="background-color: darkgray">
-        <td style="width:30px;font-weight: bolder; border: solid black 1px; text-align: left">БР.</td>
-        <td style="font-weight: bolder; border: solid black 1px">СТАТУС</td>
+<table class="table">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">БР.</th>
+        <th scope="col">СТАТУС</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="order: ${orders}">
-        <td style="text-align: center; font-weight: bolder; background-color: lightgray; border: solid darkgray 1px;"
+    <tr th:each="order: ${orders}" itemscope="row">
+        <td
             th:text="${order.getOrderId()}"></td>
-        <td style="text-transform: capitalize; background-color: lightgray; border: solid darkgray 1px;"
+        <td
             th:text="${order.getOrderStatus()}"></td>
     </tr>
     </tbody>
