@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
         List<OrderHasFood> orderHasFoodList = new ArrayList<>();
         order = orderRepository.save(order);
         for(int i = 0; i < foodIds.size(); i++){
-       
+
             if(foodQuantities.get(i) != null) {
                 OrderHasFood orderHasFood = new OrderHasFood(new OrderHasFoodKey(foodIds.get(i), order.getOrderId()), foodQuantities.get(i));
                 orderHasFoodList.add(orderHasFood);

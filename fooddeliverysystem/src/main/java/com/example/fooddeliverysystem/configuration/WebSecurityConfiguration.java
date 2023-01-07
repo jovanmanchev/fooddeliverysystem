@@ -34,6 +34,7 @@ public class WebSecurityConfiguration {
                 .requestMatchers("/takeOrder/*").hasAnyRole("ADMIN", "DELIVER")
                 .requestMatchers("/showOrderDeliverer").hasAnyRole("ADMIN", "DELIVER")
                 .requestMatchers("/orderPayment/*").hasAnyRole("ADMIN", "DELIVER")
+                .requestMatchers("/reports/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
