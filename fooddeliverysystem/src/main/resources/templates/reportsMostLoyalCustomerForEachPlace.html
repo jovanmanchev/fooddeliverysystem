@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+
+    <thead>
+    <th>customerName</th>
+    <th>salePlaceName</th>
+    <th>customerAdress</th>
+    <th>customerAdressNumber</th>
+    <th>orderNumber</th>
+    <th>orderNumber</th>
+
+    </thead>
+    <tbody>
+    <tr th:each ="res: ${report}">
+        <td th:text = "${res.getCustomerName()}"></td>
+        <td th:text = "${res.getSalePlaceName()}"> </td>
+        <td th:text = "${res.getCustomerAdress()}"></td>
+        <td th:text = "${res.getCustomerAdressNumber()}"></td>
+        <td th:text = "${res.getOrderNumber()}"></td>
+
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

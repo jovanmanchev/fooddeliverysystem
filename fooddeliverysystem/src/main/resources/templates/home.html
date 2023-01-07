@@ -18,8 +18,12 @@
             <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none; margin-right: 20px" th:href="@{/salePlace/Orders}" sec:authorize="hasRole('ROLE_SALEPLACEEMPLOYEE')">Нарачки</a></li>
             <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none; margin-right: 20px" th:href="@{/deliveryOrders}" sec:authorize="hasRole('ROLE_DELIVER')">Превземете нарачка</a></li>
             <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none; margin-right: 20px" th:href="@{/showOrderDeliverer}" sec:authorize="hasRole('ROLE_DELIVER')">Ваши нарачки</a></li>
+
+            <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none; margin-right: 20px" th:href="@{/reports/bestPacketsEachSalePlace}" sec:authorize="hasRole('ROLE_ADMIN')">Најдобри пакети за секое продажно место</a></li>
+            <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none; margin-right: 20px" th:href="@{/reports/mostLoyalCustomerForEachPlace}" sec:authorize="hasRole('ROLE_ADMIN')">Најверен потрошувач за секое продажно место</a></li>
         </ul>
     </div>
+
 </nav>
 </body>
 </html>
