@@ -1,9 +1,6 @@
 package com.example.fooddeliverysystem.web;
 
-import com.example.fooddeliverysystem.service.BestPacketsForEachSalePlaceService;
-import com.example.fooddeliverysystem.service.DeliverNumberOfOrdersDeliveredBySalePlaceService;
-import com.example.fooddeliverysystem.service.FranchizeEarningsBySalePlaceService;
-import com.example.fooddeliverysystem.service.MostLoyalCustomerForEachPlaceService;
+import com.example.fooddeliverysystem.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,14 +14,18 @@ public class ReportsController {
     private final FranchizeEarningsBySalePlaceService franchizeEarningsBySalePlaceService;
 
     private final DeliverNumberOfOrdersDeliveredBySalePlaceService deliverNumberOfOrdersDeliveredBySalePlaceService;
+
+    private final TotalCouponsByCustomerService totalCouponsByCustomerService;
     public ReportsController(BestPacketsForEachSalePlaceService bestPacketsForEachSalePlaceService,
                              MostLoyalCustomerForEachPlaceService mostLoyalCustomerForEachPlaceService,
                              FranchizeEarningsBySalePlaceService franchizeEarningsBySalePlaceService,
-                             DeliverNumberOfOrdersDeliveredBySalePlaceService deliverNumberOfOrdersDeliveredBySalePlaceService) {
+                             DeliverNumberOfOrdersDeliveredBySalePlaceService deliverNumberOfOrdersDeliveredBySalePlaceService,
+                             TotalCouponsByCustomerService totalCouponsByCustomerService) {
         this.bestPacketsForEachSalePlaceService = bestPacketsForEachSalePlaceService;
         this.mostLoyalCustomerForEachPlaceService = mostLoyalCustomerForEachPlaceService;
         this.franchizeEarningsBySalePlaceService = franchizeEarningsBySalePlaceService;
         this.deliverNumberOfOrdersDeliveredBySalePlaceService = deliverNumberOfOrdersDeliveredBySalePlaceService;
+        this.totalCouponsByCustomerService = totalCouponsByCustomerService;
     }
 
     @GetMapping("/reports/bestPacketsEachSalePlace")
@@ -47,5 +48,11 @@ public class ReportsController {
     public String getDeliverNumberOfOrdersDeliveredBySalePlace(Model model){
         model.addAttribute("report", this.deliverNumberOfOrdersDeliveredBySalePlaceService.listAll());
         return "reportsDeliverNumberOfOrdersDeliveredBySalePlace";
+    }
+
+    @GetMapping("/reports/TotalCouponsByCustomer")
+    public String getTotalCouponsByCustomer(Model model){
+        model.addAttribute("report", this.totalCouponsByCustomerService.listAll());
+        return "reportsTotalCouponsByCustomer";
     }
 }

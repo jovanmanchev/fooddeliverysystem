@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+
+  <thead>
+  <th>userId</th>
+  <th>userName</th>
+  <th>totalSum</th>
+
+
+  </thead>
+  <tbody>
+  <tr th:each ="res: ${report}">
+    <td th:text = "${res.getUserId()}"></td>
+    <td th:text = "${res.getUserName()}"> </td>
+    <td th:text = "${res.getTotalSum()}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
