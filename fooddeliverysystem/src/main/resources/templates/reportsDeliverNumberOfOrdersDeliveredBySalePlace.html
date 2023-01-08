@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+
+  <thead>
+  <th>deliverName</th>
+  <th>salePlaceName</th>
+  <th>numberOfOrders</th>
+  <th>totalSum</th>
+
+  </thead>
+  <tbody>
+  <tr th:each ="res: ${report}">
+    <td th:text = "${res.getDeliverName()}"></td>
+    <td th:text = "${res.getSalePlaceName()}"> </td>
+    <td th:text = "${res.getNumberOfOrders()}"></td>
+    <td th:text = "${res.getTotalSum()}"></td>
+
+
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
