@@ -35,6 +35,9 @@ public class OrderPaymentServiceImpl implements OrderPaymentService {
       Consumer consumer = order.getConsumer();
       OrderPayment orderPayment = new OrderPayment(orderCost, order.getTypeOfPayment(), Timestamp.valueOf(LocalDateTime.now()), consumer, deliver);
       order.setOrderStatus("zavrsena");
-      this.orderPaymentRepository.save(orderPayment);
+      OrderPayment orderPayment1 = this.orderPaymentRepository.save(orderPayment);
+      Order order1 = this.orderService.findOrderById(orderId);
+      order1.setOrderPayment(orderPayment1);
+      this.orderService.saveOrder(order1);
     }
 }
