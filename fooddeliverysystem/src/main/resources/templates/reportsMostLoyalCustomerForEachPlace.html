@@ -2,22 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Najveren potroshuvach</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<table>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 55px">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a style="color: white; font-weight: bolder; text-decoration: none;"
+                                    th:href="@{/home}">Врати се назад</a></li>
+        </ul>
+    </div>
+</nav>
+<h1 class="display-4">Најверен потрошувач за секое продажно место</h1>
+<table class="table">
 
-    <thead>
-    <th>customerName</th>
-    <th>salePlaceName</th>
-    <th>customerAdress</th>
-    <th>customerAdressNumber</th>
-    <th>orderNumber</th>
-    <th>orderNumber</th>
-
+    <thead class="thead-light">
+    <tr>
+    <th>Потрошувач</th>
+    <th>Продажно место</th>
+    <th>Адреса на потрошувач</th>
+    <th>Број на адреса</th>
+    <th>Број на нарачка</th>
+    </tr>
     </thead>
     <tbody>
-    <tr th:each ="res: ${report}">
+    <tr th:each ="res: ${report}" itemscope="row">
         <td th:text = "${res.getCustomerName()}"></td>
         <td th:text = "${res.getSalePlaceName()}"> </td>
         <td th:text = "${res.getCustomerAdress()}"></td>
