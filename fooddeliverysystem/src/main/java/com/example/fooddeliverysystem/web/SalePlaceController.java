@@ -132,7 +132,13 @@ public class SalePlaceController {
     public String showOrderStatusToUser(HttpServletRequest httpServletRequest, Model model) {
         String username = httpServletRequest.getRemoteUser();
         List<Order> orders = this.orderService.findAllOrdersForCustomer(username);
-        model.addAttribute("orders", orders);
+        model.addAttribute("orders", orders.stream().sorted((a,b) -> Long.compare(b.getOrderId(), a.getOrderId())).collect(Collectors.toList()));
+        Map<Long, List<String>> foodNamesInOrder = new HashMap<>();
+        for(Order order: orders){
+            foodNamesInOrder.put(order.getOrderId(), this.hasFoodService.findAllFoodnamesInOrder(order.getOrderId()));
+        }
+
+        model.addAttribute("foodNames", foodNamesInOrder);
         return "showOrderStatusCustomer";
     }
 
