@@ -3,6 +3,7 @@ package com.example.fooddeliverysystem.web;
 import com.example.fooddeliverysystem.exceptions.FoodItemNotFoundException;
 import com.example.fooddeliverysystem.exceptions.SalePlaceNotFoundException;
 import com.example.fooddeliverysystem.model.*;
+import com.example.fooddeliverysystem.model.objects.FoodItemsWithQuantity;
 import com.example.fooddeliverysystem.repository.PriceRepository;
 import com.example.fooddeliverysystem.repository.storedprocedure.OrderCostCalcualte;
 import com.example.fooddeliverysystem.service.*;
@@ -133,7 +134,7 @@ public class SalePlaceController {
         String username = httpServletRequest.getRemoteUser();
         List<Order> orders = this.orderService.findAllOrdersForCustomer(username);
         model.addAttribute("orders", orders.stream().sorted((a,b) -> Long.compare(b.getOrderId(), a.getOrderId())).collect(Collectors.toList()));
-        Map<Long, List<String>> foodNamesInOrder = new HashMap<>();
+        Map<Long, List<FoodItemsWithQuantity>> foodNamesInOrder = new HashMap<>();
         for(Order order: orders){
             foodNamesInOrder.put(order.getOrderId(), this.hasFoodService.findAllFoodnamesInOrder(order.getOrderId()));
         }

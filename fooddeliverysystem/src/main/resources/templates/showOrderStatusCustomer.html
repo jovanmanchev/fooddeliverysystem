@@ -32,8 +32,8 @@
             th:text="${order.getOrderStatus()}"></td>
         <td>
             <div th:each = "foodObj : ${foodNames.get(order.getOrderId())}">
-                <span th:text = "${foodObj}"></span>
-                <span>2</span>
+                <span th:text = "${foodObj.getFoodName()}"></span>
+                <span th:text = "${foodObj.getFoodQuantity()}"></span>
             </div>
         </td>
     </tr>

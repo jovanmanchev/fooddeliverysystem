@@ -2,6 +2,7 @@ package com.example.fooddeliverysystem.service.impl;
 
 import com.example.fooddeliverysystem.model.FoodItem;
 import com.example.fooddeliverysystem.model.OrderHasFood;
+import com.example.fooddeliverysystem.model.objects.FoodItemsWithQuantity;
 import com.example.fooddeliverysystem.repository.FoodItemRepository;
 import com.example.fooddeliverysystem.repository.OrderHasFoodRepository;
 import com.example.fooddeliverysystem.service.FoodItemService;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class HasFoodServiceImpl implements HasFoodService {
 
@@ -26,19 +28,22 @@ public class HasFoodServiceImpl implements HasFoodService {
     }
 
     @Override
-    public List<String> findAllFoodnamesInOrder(Long orderId) {
-        List<String> foodNames = new ArrayList<>();
+    public List<FoodItemsWithQuantity> findAllFoodnamesInOrder(Long orderId) {
+        List<FoodItemsWithQuantity> foodNamesAndQuantites = new ArrayList<>();
 
         List<OrderHasFood> orderHasFoodList = this.orderHasFoodRepository.findAll();
         for(OrderHasFood orderHasFood: orderHasFoodList){
             if(orderId.equals(orderHasFood.getOrderHasFoodKey().getOrderId())){
                 FoodItem foodItem = this.foodItemRepository.findById(orderHasFood.getOrderHasFoodKey().getFoodItemId()).get();
-                foodNames.add(foodItem.getFoodItemName());
+                String name = foodItem.getFoodItemName();
+                Integer quantity = orderHasFood.getQuantity();
+                foodNamesAndQuantites.add(new FoodItemsWithQuantity(name, quantity));
+
             }
 
 
         }
 
-        return foodNames;
+        return foodNamesAndQuantites;
     }
 }
