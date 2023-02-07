@@ -16,18 +16,22 @@
         </ul>
     </div>
 </nav>
+<h1 class="display-4" style="margin-left: 5%; font-size: 33px;">Ваши достави</h1>
+    <div th:each="order : ${orders}" style="width: 90%; margin-left: auto; margin-right: auto; margin-top:10px;" class="border">
+        <table class="table" >
+            <tr><th scope="col">Адреса</th><th scope="col">Број</th><th scope="col">Цена</th><th scope="col">Продажно место</th><th scope="col">Начин на плаќање</th><th scope="col"></th></tr>
 
-<div style="width: 1500px; height: 1000px; margin-top: 20px; margin-left: 20px">
-    <div th:each="order : ${orders}"
-         style="width: 350px; padding-top: 10px; background-color: lightgray; margin-bottom: 10px ; margin-right: 15px; height: 250px; display: inline-block; border: 1px solid black">
-        <p style="margin-left: 20px;" th:text="'Адреса: ' + ${order.getConsumer().getLocation().getAddress()}"></p>
-        <p style="margin-left: 20px;" th:text="'Број: ' + ${order.getConsumer().getLocation().getNumber()}"></p>
-        <p style="margin-left: 20px;" th:text="'Цена: ' + ${costs.get(orderStat.index)}"></p>
-        <p style="margin-left: 20px;" th:text="'Продажно место: ' + ${order.getSalePlace().getSalePlaceName()}"></p>
-        <p style="margin-left: 20px;" th:text="'Начин на плаќање ' + ${order.getTypeOfPayment()}"></p>
-        <a style="margin-left: 70px" th:href="@{'/orderPayment/{id}' (id = ${order.getOrderId()})}">Потврдете дека е платена</a>
+            <tr>
+                <td th:text="${order.getConsumer().getLocation().getAddress()}"></td>
+                <td th:text="${order.getConsumer().getLocation().getNumber()}"></td>
+                <td th:text="${costs.get(orderStat.index)}"></td>
+                <td th:text="${order.getSalePlace().getSalePlaceName()}"></td>
+                <td th:text="${order.getTypeOfPayment()}"></td>
+                <td><a class="btn btn-success text-white " th:href="@{'/orderPayment/{id}' (id = ${order.getOrderId()})}">Потврдете дека е платена</a></td>
+            </tr>
+        </table>
     </div>
-</div>
+
 
 </body>
 </html>

@@ -16,15 +16,16 @@
         </ul>
     </div>
 </nav>
+<h1 class="display-4" style="margin-left: 1%; font-size: 33px;">Подготвени нарачки за достава</h1>
 <div style="width: 1500px; height: 1000px; margin-top: 20px; margin-left: 20px">
     <div th:each="order : ${orders}"
-         style="width: 350px; padding-top: 10px; background-color: lightgray; margin-bottom: 10px ; margin-right: 15px; height: 210px; display: inline-block; border: 1px solid black">
+         style="width: 350px; padding-top: 10px; background-color: #f6f5f5; margin-bottom: 10px ; margin-right: 15px; height: 210px; display: inline-block; border: 1px solid black">
         <p style="margin-left: 20px;" th:text="'Улица: ' + ${order.getConsumer().getLocation().getAddress()}"></p>
         <p style="margin-left: 20px;" th:text="'Број: ' + ${order.getConsumer().getLocation().getNumber()}"></p>
         <p style="margin-left: 20px;" th:if="${orderStat.index < costs.size()}"
            th:text="'Цена: ' + ${costs.get(orderStat.index)}"></p>
         <p style="margin-left: 20px;" th:text="'Продажно место: ' + ${order.getSalePlace().getSalePlaceName()}"></p>
-        <a style="text-decoration: none; font-weight: bolder; margin-left: 100px"
+        <a style="margin-left: 15px; margin-top: -4px;" class="btn btn-success text-white "
            th:href="@{'/takeOrder/{id}' (id = ${order.getOrderId()})}">Превземи нарачка</a>
     </div>
 </div>

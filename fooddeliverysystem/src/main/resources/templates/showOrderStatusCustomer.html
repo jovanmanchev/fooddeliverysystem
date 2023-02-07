@@ -15,12 +15,13 @@
         </ul>
     </div>
 </nav>
-<h1 class="display-4" style="margin-left: 30%">Историјат на вашите нарачки</h1>
+<h1 class="display-4" style="margin-left:15px; font-size: 33px;">Историјат на вашите нарачки</h1>
 <table class="table">
     <thead class="thead-light">
     <tr>
         <th scope="col">БР.</th>
         <th scope="col">СТАТУС</th>
+        <th scope="col">СОДРЖИ</th>
     </tr>
     </thead>
     <tbody>
@@ -29,7 +30,11 @@
             th:text="${order.getOrderId()}"></td>
         <td
             th:text="${order.getOrderStatus()}"></td>
-        <td th:each = "foodObj : ${foodNames.get(order.getOrderId())}" th:text = "${foodObj}">
+        <td>
+            <div th:each = "foodObj : ${foodNames.get(order.getOrderId())}">
+                <span th:text = "${foodObj}"></span>
+                <span>2</span>
+            </div>
         </td>
     </tr>
     </tbody>
