@@ -101,8 +101,10 @@ public class SalePlaceController {
             List<Order> orders = this.salePlaceService.findAllCreatedOrders(username);
             List<OrderHasFood> orderHasFoodList = new ArrayList<>();
             model.addAttribute("orders", orders);
+            List<List<OrderHasFood>> outer = new ArrayList<>();
             for (Order order : orders) {
                 List<OrderHasFood> inner = this.hasFoodService.findAllFoodsInOrder(order.getOrderId());
+                outer.add(inner);
                 List<FoodItem> items = new ArrayList<>();
                 for (OrderHasFood orderHasFood : inner) {
                     FoodItem foodItems = this.salePlaceService.findSalePlaceServiceById(this.salePlaceService.findSalePlaceForUser(username).getSalePalceId())
@@ -113,9 +115,11 @@ public class SalePlaceController {
 
                 }
                 map.put(order.getOrderId(), items);
+                model.addAttribute("quantity", outer);
             }
 
             model.addAttribute("orderHasFoods", map);
+
         } catch (SalePlaceNotFoundException e) {
             model.addAttribute("error", "sale place not found");
         }

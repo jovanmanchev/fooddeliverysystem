@@ -26,8 +26,19 @@
             <td th:text="${order.getOrderId()}"></td>
             <td th:text="${order.getOrderStatus()}"></td>
             <td>
-                <div th:each="food : ${orderHasFoods.get(order.getOrderId())}" th:text="${food.getFoodItemName()}"></div>
+                <div th:each="food : ${orderHasFoods.get(order.getOrderId())}" >
+                    <span th:text="${food.getFoodItemName()}"></span>
+                    <th:block th:each = "q1: ${quantity}">
+                        <th:block th:each = "q2 : ${q1}">
+                            <span th:if = "${q2.getOrderHasFoodKey().orderId == order.getOrderId() && food.getFoodItemId() == q2.getOrderHasFoodKey().foodItemId }" th:text = "${q2.quantity}">
+
+                            </span>
+                        </th:block>
+                    </th:block>
+                </div>
+
             </td>
+
             <td><a class="btn btn-success text-white " th:href="@{'/changeOrderStatus/{id}' (id = ${order.getOrderId()})}">Промени го статусот во спремна</a></td>
         </tr>
     </table>
