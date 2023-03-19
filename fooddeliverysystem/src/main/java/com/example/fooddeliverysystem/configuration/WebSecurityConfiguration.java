@@ -35,7 +35,7 @@ public class WebSecurityConfiguration {
                 .requestMatchers("/showOrderDeliverer").hasAnyRole("ADMIN", "DELIVER")
                 .requestMatchers("/orderPayment/*").hasAnyRole("ADMIN", "DELIVER")
                 .requestMatchers("/reports/**").hasRole("ADMIN")
-                .requestMatchers("/images/**","/home").permitAll()
+                .requestMatchers("/images/**","/home","/").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -49,7 +49,7 @@ public class WebSecurityConfiguration {
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/login");
+                .logoutSuccessUrl("/home");
 
 
         return http.build();

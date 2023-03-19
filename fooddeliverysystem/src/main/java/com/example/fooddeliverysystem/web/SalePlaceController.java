@@ -149,4 +149,8 @@ public class SalePlaceController {
 
         return "home";
     }
+    @GetMapping("/")
+    public String showHome() {
+        return "home";
+    }
 }
