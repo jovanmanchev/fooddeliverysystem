@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -98,7 +95,7 @@ public class SalePlaceController {
         Map<Long, List<FoodItem>> map = new HashMap<>();
         String username = httpServletRequest.getRemoteUser();
         try {
-            List<Order> orders = this.salePlaceService.findAllCreatedOrders(username);
+            List<Order> orders = this.salePlaceService.findAllCreatedOrders(username).stream().sorted(Comparator.comparingLong(Order::getOrderId)).collect(Collectors.toList());
             List<OrderHasFood> orderHasFoodList = new ArrayList<>();
             model.addAttribute("orders", orders);
             List<List<OrderHasFood>> outer = new ArrayList<>();
