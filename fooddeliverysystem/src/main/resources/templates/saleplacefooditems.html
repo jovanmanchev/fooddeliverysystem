@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
+
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 55px">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -41,10 +42,10 @@
                 <input hidden th:if="${foodItemStat.index < prices.size()}"
                        th:value="${prices.get(foodItemStat.index).getCost()}"
                        th:text="${prices.get(foodItemStat.index).getCost()}"
-                       name="foodPrice">
+                       name="foodPrice" class="cena">
             </td>
             <td>
-                <input type="number" name="quantity">
+                <input type="number" name="quantity" class="kolichina">
             </td>
         </tr>
         <tr>
@@ -54,7 +55,7 @@
                     <option value="card">Картичка</option>
                 </select>
             </td>
-            <td></td>
+            <td>Вкупно: <span id="totalPrice">0</span></td>
             <td>
                 <input type="submit" value="Направете нарачка">
             </td>
@@ -64,4 +65,19 @@
 </table>
 
 </body>
+<script>
+    const totalPriceSpan = document.querySelector('#totalPrice');
+    const kolichini = document.getElementsByClassName("kolichina");
+    for(let j = 0; j<kolichini.length;j++){
+        kolichini[j].addEventListener('change',handleTotalPrice);
+    }
+    function handleTotalPrice(event){
+        const ceni = document.getElementsByClassName("cena");
+        let total = 0;
+        for(let i = 0; i<kolichini.length;i++){
+            total+=ceni[i].value * kolichini[i].value;
+        }
+        totalPriceSpan.innerHTML = total.toString();
+    }
+</script>
 </html>
