@@ -5,6 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Controller
 public class ReportsController {
 
@@ -46,7 +49,8 @@ public class ReportsController {
 
     @GetMapping("/reports/DeliverNumberOfOrdersDeliveredBySalePlace")
     public String getDeliverNumberOfOrdersDeliveredBySalePlace(Model model){
-        model.addAttribute("report", this.deliverNumberOfOrdersDeliveredBySalePlaceService.listAll());
+        Set s = new HashSet(this.deliverNumberOfOrdersDeliveredBySalePlaceService.listAll());
+        model.addAttribute("report", s);
         return "reportsDeliverNumberOfOrdersDeliveredBySalePlace";
     }
 
